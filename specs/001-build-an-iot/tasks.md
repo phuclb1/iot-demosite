@@ -46,9 +46,9 @@
 - [x] T001 Create project structure with backend/ and frontend/ directories per plan.md
 - [x] T002 Initialize Next.js frontend with TypeScript, Tailwind CSS, Shadcn UI components
 - [x] T003 Initialize backend with Python 3.12, FastAPI, and async dependencies
-- [ ] T004 [P] Configure pytest for unit testing in backend and Vitest for frontend
-- [ ] T005 [P] Configure Playwright for E2E testing in frontend/
-- [ ] T006 [P] Configure ruff/black for Python backend and ESLint/Prettier for TypeScript frontend
+- [x] T004 [P] Configure pytest for unit testing in backend and Vitest for frontend
+- [x] T005 [P] Configure Playwright for E2E testing in frontend/
+- [x] T006 [P] Configure ruff/black for Python backend and ESLint/Prettier for TypeScript frontend
 - [ ] T007 Install and configure PostgreSQL client library (asyncpg) in backend/
 - [ ] T008 Install and configure InfluxDB 3.0 client library (influxdb3-python) in backend/
 - [ ] T009 Install and configure asyncio-mqtt client library in backend/

@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+.next/
+out/
+dist/
+build/
+
+# Environment variables
+.env*
+
+# Testing
+coverage/
+.nyc_output
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Misc
+.DS_Store
+*.tsbuildinfo
+.vscode/
+.idea/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
