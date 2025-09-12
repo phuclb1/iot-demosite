@@ -45,7 +45,7 @@
 
 - [x] T001 Create project structure with backend/ and frontend/ directories per plan.md
 - [x] T002 Initialize Next.js frontend with TypeScript, Tailwind CSS, Shadcn UI components
-- [ ] T003 Initialize backend with Python 3.12, FastAPI, and async dependencies
+- [x] T003 Initialize backend with Python 3.12, FastAPI, and async dependencies
 - [ ] T004 [P] Configure pytest for unit testing in backend and Vitest for frontend
 - [ ] T005 [P] Configure Playwright for E2E testing in frontend/
 - [ ] T006 [P] Configure ruff/black for Python backend and ESLint/Prettier for TypeScript frontend
