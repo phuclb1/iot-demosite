@@ -38,20 +38,20 @@
 
 ## Path Conventions
 - **Web app**: `backend/src/`, `frontend/src/`
-- Tech Stack: TypeScript, Next.js, VisActor, PostgreSQL, InfluxDB, MQTT.js
-- Testing: Vitest (unit), Playwright (E2E)
+- Tech Stack: Backend: Python 3.12, FastAPI, asyncpg, asyncio-mqtt. Frontend: TypeScript, Next.js, VisActor, PostgreSQL, InfluxDB
+- Testing: Backend: pytest, pytest-asyncio. Frontend: Vitest (unit), Playwright (E2E)
 
 ## Phase 3.1: Project Setup
 
 - [x] T001 Create project structure with backend/ and frontend/ directories per plan.md
 - [x] T002 Initialize Next.js frontend with TypeScript, Tailwind CSS, Shadcn UI components
-- [ ] T003 Initialize backend with Node.js, TypeScript, and Express/Next.js API routes
-- [ ] T004 [P] Configure Vitest for unit testing in both frontend and backend
+- [ ] T003 Initialize backend with Python 3.12, FastAPI, and async dependencies
+- [ ] T004 [P] Configure pytest for unit testing in backend and Vitest for frontend
 - [ ] T005 [P] Configure Playwright for E2E testing in frontend/
-- [ ] T006 [P] Configure ESLint and Prettier for TypeScript projects
-- [ ] T007 Install and configure PostgreSQL client library (pg) in backend/
-- [ ] T008 Install and configure InfluxDB 3.0 client library (@influxdata/influxdb3-client) in backend/
-- [ ] T009 Install and configure MQTT.js client library in backend/
+- [ ] T006 [P] Configure ruff/black for Python backend and ESLint/Prettier for TypeScript frontend
+- [ ] T007 Install and configure PostgreSQL client library (asyncpg) in backend/
+- [ ] T008 Install and configure InfluxDB 3.0 client library (influxdb3-python) in backend/
+- [ ] T009 Install and configure asyncio-mqtt client library in backend/
 - [ ] T010 Install and configure VisActor (@visactor/react-vchart) in frontend/
 - [ ] T011 Install and configure Jotai state management in frontend/
 
@@ -59,78 +59,78 @@
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
 
 ### Contract Tests (API Schema Validation)
-- [ ] T012 [P] Contract test GET /api/v1/organizations in backend/tests/contract/test_organizations_get.test.ts
-- [ ] T013 [P] Contract test GET /api/v1/organizations/{orgId}/sites in backend/tests/contract/test_sites_get.test.ts
-- [ ] T014 [P] Contract test GET /api/v1/organizations/{orgId}/sites/{siteId}/areas in backend/tests/contract/test_areas_get.test.ts
-- [ ] T015 [P] Contract test GET /api/v1/organizations/{orgId}/sites/{siteId}/areas/{areaId}/devices in backend/tests/contract/test_devices_get.test.ts
-- [ ] T016 [P] Contract test GET /api/v1/telemetry/current/{deviceId} in backend/tests/contract/test_telemetry_current_get.test.ts
-- [ ] T017 [P] Contract test GET /api/v1/telemetry/historical/{deviceId} in backend/tests/contract/test_telemetry_historical_get.test.ts
-- [ ] T018 [P] Contract test GET /api/v1/telemetry/stream (SSE) in backend/tests/contract/test_telemetry_stream_get.test.ts
-- [ ] T019 [P] Contract test POST /api/v1/auth/login in backend/tests/contract/test_auth_login_post.test.ts
+- [ ] T012 [P] Contract test GET /api/v1/organizations in backend/tests/contract/test_organizations_get.py
+- [ ] T013 [P] Contract test GET /api/v1/organizations/{org_id}/sites in backend/tests/contract/test_sites_get.py
+- [ ] T014 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas in backend/tests/contract/test_areas_get.py
+- [ ] T015 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices in backend/tests/contract/test_devices_get.py
+- [ ] T016 [P] Contract test GET /api/v1/telemetry/current/{device_id} in backend/tests/contract/test_telemetry_current_get.py
+- [ ] T017 [P] Contract test GET /api/v1/telemetry/historical/{device_id} in backend/tests/contract/test_telemetry_historical_get.py
+- [ ] T018 [P] Contract test GET /api/v1/telemetry/stream (SSE) in backend/tests/contract/test_telemetry_stream_get.py
+- [ ] T019 [P] Contract test POST /api/v1/auth/login in backend/tests/contract/test_auth_login_post.py
 
 ### Integration Tests (User Stories Validation)
-- [ ] T020 [P] Integration test: Operations manager views real-time dashboard in backend/tests/integration/test_dashboard_realtime.test.ts
-- [ ] T021 [P] Integration test: Hierarchical filtering (org/site/area) in backend/tests/integration/test_hierarchy_filtering.test.ts
-- [ ] T022 [P] Integration test: Historical data time range selection in backend/tests/integration/test_historical_data.test.ts
-- [ ] T023 [P] Integration test: Device status monitoring and offline detection in backend/tests/integration/test_device_status.test.ts
-- [ ] T024 [P] Integration test: MQTT telemetry ingestion and processing in backend/tests/integration/test_mqtt_ingestion.test.ts
+- [ ] T020 [P] Integration test: Operations manager views real-time dashboard in backend/tests/integration/test_dashboard_realtime.py
+- [ ] T021 [P] Integration test: Hierarchical filtering (org/site/area) in backend/tests/integration/test_hierarchy_filtering.py
+- [ ] T022 [P] Integration test: Historical data time range selection in backend/tests/integration/test_historical_data.py
+- [ ] T023 [P] Integration test: Device status monitoring and offline detection in backend/tests/integration/test_device_status.py
+- [ ] T024 [P] Integration test: MQTT telemetry ingestion and processing in backend/tests/integration/test_mqtt_ingestion.py
 
 ### Database Schema Tests
-- [ ] T025 [P] Database schema test: PostgreSQL tables creation in backend/tests/integration/test_postgres_schema.test.ts
-- [ ] T026 [P] Database schema test: InfluxDB measurements setup in backend/tests/integration/test_influxdb_schema.test.ts
+- [ ] T025 [P] Database schema test: PostgreSQL tables creation in backend/tests/integration/test_postgres_schema.py
+- [ ] T026 [P] Database schema test: InfluxDB measurements setup in backend/tests/integration/test_influxdb_schema.py
 
 ## Phase 3.3: Data Models (ONLY after tests are failing)
 
 ### PostgreSQL Models
-- [ ] T027 [P] Organization model in backend/src/models/Organization.ts
-- [ ] T028 [P] Site model in backend/src/models/Site.ts  
-- [ ] T029 [P] Area model in backend/src/models/Area.ts
-- [ ] T030 [P] Device model in backend/src/models/Device.ts
-- [ ] T031 [P] User model in backend/src/models/User.ts
+- [ ] T027 [P] Organization model in backend/src/models/organization.py
+- [ ] T028 [P] Site model in backend/src/models/site.py  
+- [ ] T029 [P] Area model in backend/src/models/area.py
+- [ ] T030 [P] Device model in backend/src/models/device.py
+- [ ] T031 [P] User model in backend/src/models/user.py
 
 ### InfluxDB Models
-- [ ] T032 [P] TelemetryReading model in backend/src/models/TelemetryReading.ts
-- [ ] T033 [P] DeviceStatusSnapshot model in backend/src/models/DeviceStatusSnapshot.ts
+- [ ] T032 [P] TelemetryReading model in backend/src/models/telemetry_reading.py
+- [ ] T033 [P] DeviceStatusSnapshot model in backend/src/models/device_status_snapshot.py
 
 ### Database Migrations
 - [ ] T034 PostgreSQL migration scripts in backend/src/migrations/
-- [ ] T035 InfluxDB schema setup script in backend/src/scripts/setup-influxdb.ts
+- [ ] T035 InfluxDB schema setup script in backend/src/scripts/setup_influxdb.py
 
 ## Phase 3.4: Core Services
 
 ### Database Services
-- [ ] T036 [P] PostgreSQL connection service in backend/src/services/PostgreSQLService.ts
-- [ ] T037 [P] InfluxDB connection service in backend/src/services/InfluxDBService.ts
-- [ ] T038 [P] Organization service (CRUD operations) in backend/src/services/OrganizationService.ts
-- [ ] T039 [P] Site service (CRUD operations) in backend/src/services/SiteService.ts
-- [ ] T040 [P] Area service (CRUD operations) in backend/src/services/AreaService.ts
-- [ ] T041 [P] Device service (CRUD operations) in backend/src/services/DeviceService.ts
-- [ ] T042 [P] User service (CRUD operations) in backend/src/services/UserService.ts
+- [ ] T036 [P] PostgreSQL connection service in backend/src/services/postgresql_service.py
+- [ ] T037 [P] InfluxDB connection service in backend/src/services/influxdb_service.py
+- [ ] T038 [P] Organization service (CRUD operations) in backend/src/services/organization_service.py
+- [ ] T039 [P] Site service (CRUD operations) in backend/src/services/site_service.py
+- [ ] T040 [P] Area service (CRUD operations) in backend/src/services/area_service.py
+- [ ] T041 [P] Device service (CRUD operations) in backend/src/services/device_service.py
+- [ ] T042 [P] User service (CRUD operations) in backend/src/services/user_service.py
 
 ### Telemetry Services  
-- [ ] T043 [P] Telemetry service (InfluxDB queries) in backend/src/services/TelemetryService.ts
-- [ ] T044 [P] MQTT client service in backend/src/services/MQTTService.ts
-- [ ] T045 Real-time streaming service (SSE) in backend/src/services/StreamingService.ts
+- [ ] T043 [P] Telemetry service (InfluxDB queries) in backend/src/services/telemetry_service.py
+- [ ] T044 [P] MQTT client service in backend/src/services/mqtt_service.py
+- [ ] T045 Real-time streaming service (SSE) in backend/src/services/streaming_service.py
 
 ### Authentication & Authorization
-- [ ] T046 [P] JWT authentication service in backend/src/services/AuthService.ts
-- [ ] T047 [P] Authorization middleware in backend/src/middleware/AuthMiddleware.ts
+- [ ] T046 [P] JWT authentication service in backend/src/services/auth_service.py
+- [ ] T047 [P] Authorization middleware in backend/src/middleware/auth_middleware.py
 
 ## Phase 3.5: API Endpoints
 
 ### Hierarchy Endpoints
-- [ ] T048 GET /api/v1/organizations endpoint in backend/src/pages/api/v1/organizations.ts
-- [ ] T049 GET /api/v1/organizations/[orgId]/sites endpoint in backend/src/pages/api/v1/organizations/[orgId]/sites.ts
-- [ ] T050 GET /api/v1/organizations/[orgId]/sites/[siteId]/areas endpoint in backend/src/pages/api/v1/organizations/[orgId]/sites/[siteId]/areas.ts
-- [ ] T051 GET /api/v1/organizations/[orgId]/sites/[siteId]/areas/[areaId]/devices endpoint in backend/src/pages/api/v1/organizations/[orgId]/sites/[siteId]/areas/[areaId]/devices.ts
+- [ ] T048 GET /api/v1/organizations endpoint in backend/src/api/v1/organizations.py
+- [ ] T049 GET /api/v1/organizations/{org_id}/sites endpoint in backend/src/api/v1/sites.py
+- [ ] T050 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas endpoint in backend/src/api/v1/areas.py
+- [ ] T051 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices endpoint in backend/src/api/v1/devices.py
 
 ### Telemetry Endpoints
-- [ ] T052 GET /api/v1/telemetry/current/[deviceId] endpoint in backend/src/pages/api/v1/telemetry/current/[deviceId].ts
-- [ ] T053 GET /api/v1/telemetry/historical/[deviceId] endpoint in backend/src/pages/api/v1/telemetry/historical/[deviceId].ts
-- [ ] T054 GET /api/v1/telemetry/stream endpoint (SSE) in backend/src/pages/api/v1/telemetry/stream.ts
+- [ ] T052 GET /api/v1/telemetry/current/{device_id} endpoint in backend/src/api/v1/telemetry.py
+- [ ] T053 GET /api/v1/telemetry/historical/{device_id} endpoint in backend/src/api/v1/telemetry.py
+- [ ] T054 GET /api/v1/telemetry/stream endpoint (SSE) in backend/src/api/v1/telemetry.py
 
 ### Authentication Endpoints
-- [ ] T055 POST /api/v1/auth/login endpoint in backend/src/pages/api/v1/auth/login.ts
+- [ ] T055 POST /api/v1/auth/login endpoint in backend/src/api/v1/auth.py
 
 ## Phase 3.6: Frontend Components
 
@@ -162,9 +162,9 @@
 ## Phase 3.7: Real-time Integration
 
 ### MQTT Integration
-- [ ] T073 MQTT message parser and validator in backend/src/services/MQTTMessageParser.ts
-- [ ] T074 MQTT to InfluxDB data pipeline in backend/src/services/TelemetryIngestionService.ts
-- [ ] T075 Device status monitoring service in backend/src/services/DeviceMonitoringService.ts
+- [ ] T073 MQTT message parser and validator in backend/src/services/mqtt_message_parser.py
+- [ ] T074 MQTT to InfluxDB data pipeline in backend/src/services/telemetry_ingestion_service.py
+- [ ] T075 Device status monitoring service in backend/src/services/device_monitoring_service.py
 
 ### Real-time Frontend
 - [ ] T076 SSE client hook in frontend/src/hooks/useSSEConnection.ts
@@ -174,15 +174,15 @@
 ## Phase 3.8: CLI Tools & Libraries
 
 ### Backend CLI
-- [ ] T079 [P] Organization management CLI in backend/src/cli/org-cli.ts
-- [ ] T080 [P] Device management CLI in backend/src/cli/device-cli.ts
-- [ ] T081 [P] Telemetry query CLI in backend/src/cli/telemetry-cli.ts
-- [ ] T082 [P] MQTT testing CLI in backend/src/cli/mqtt-cli.ts
+- [ ] T079 [P] Organization management CLI in backend/src/cli/org_cli.py
+- [ ] T080 [P] Device management CLI in backend/src/cli/device_cli.py
+- [ ] T081 [P] Telemetry query CLI in backend/src/cli/telemetry_cli.py
+- [ ] T082 [P] MQTT testing CLI in backend/src/cli/mqtt_cli.py
 
 ### Libraries (Constitutional Requirement)
-- [ ] T083 [P] mqtt-ingestion library with CLI interface in backend/src/lib/mqtt-ingestion/
+- [ ] T083 [P] mqtt-ingestion library with CLI interface in backend/src/lib/mqtt_ingestion/
 - [ ] T084 [P] telemetry-viz library with CLI interface in frontend/src/lib/telemetry-viz/
-- [ ] T085 [P] device-hierarchy library with CLI interface in backend/src/lib/device-hierarchy/
+- [ ] T085 [P] device-hierarchy library with CLI interface in backend/src/lib/device_hierarchy/
 
 ## Phase 3.9: E2E Tests
 
@@ -196,9 +196,9 @@
 ## Phase 3.10: Polish & Documentation
 
 ### Unit Tests
-- [ ] T091 [P] Unit tests for organization service in backend/tests/unit/services/OrganizationService.test.ts
-- [ ] T092 [P] Unit tests for telemetry service in backend/tests/unit/services/TelemetryService.test.ts
-- [ ] T093 [P] Unit tests for MQTT service in backend/tests/unit/services/MQTTService.test.ts
+- [ ] T091 [P] Unit tests for organization service in backend/tests/unit/services/test_organization_service.py
+- [ ] T092 [P] Unit tests for telemetry service in backend/tests/unit/services/test_telemetry_service.py
+- [ ] T093 [P] Unit tests for MQTT service in backend/tests/unit/services/test_mqtt_service.py
 - [ ] T094 [P] Unit tests for React components in frontend/tests/unit/components/
 - [ ] T095 [P] Unit tests for state atoms in frontend/tests/unit/state/
 

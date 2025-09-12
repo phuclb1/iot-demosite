@@ -32,11 +32,11 @@
 Real-time IoT telemetry dashboard that ingests MQTT data (vibration, temperature, power, electricity) from hierarchically organized devices and displays them as live charts with historical trending capabilities.
 
 ## Technical Context
-**Language/Version**: TypeScript with Next.js (React framework)  
-**Primary Dependencies**: Next.js, VisActor (visualization), Tailwind CSS, Shadcn UI components, Jotai (state management)  
+**Language/Version**: Frontend: TypeScript with Next.js (React framework), Backend: Python 3.12  
+**Primary Dependencies**: Frontend: Next.js, VisActor (visualization), Tailwind CSS, Shadcn UI components, Jotai (state management). Backend: FastAPI, pydantic, asyncio, uvloop  
 **Storage**: PostgreSQL (device metadata/organization hierarchy), InfluxDB (telemetry time-series data)  
-**Testing**: Vitest (unit tests), Playwright (E2E tests)  
-**Target Platform**: Web application (browser-based dashboard)
+**Testing**: Frontend: Vitest (unit tests), Playwright (E2E tests). Backend: pytest, pytest-asyncio  
+**Target Platform**: Web application (browser-based dashboard) with Python backend API server
 **Project Type**: web - frontend + backend API  
 **Performance Goals**: Real-time updates (1-second frequency), support thousands of concurrent devices  
 **Constraints**: <200ms chart update latency, handle high-frequency data ingestion (1Hz per device)  
@@ -47,13 +47,13 @@ Real-time IoT telemetry dashboard that ingests MQTT data (vibration, temperature
 
 **Simplicity**:
 - Projects: 2 (frontend, backend) - within limit of 3
-- Using framework directly? Yes - Next.js, VisActor used directly without wrappers
-- Single data model? Yes - shared TypeScript interfaces between frontend/backend
+- Using framework directly? Yes - FastAPI, Next.js, VisActor used directly without wrappers
+- Single data model? Yes - shared schemas via OpenAPI/JSON Schema between Python backend and TypeScript frontend
 - Avoiding patterns? Yes - direct service calls, no Repository pattern unless proven needed
 
 **Architecture**:
 - EVERY feature as library? Yes - telemetry ingestion, visualization, auth as separate libraries
-- Libraries listed: mqtt-ingestion (MQTT client), telemetry-viz (charts), device-hierarchy (org/site/area)
+- Libraries listed: mqtt-ingestion (Python MQTT client), telemetry-viz (React charts), device-hierarchy (Python org/site/area management)
 - CLI per library: Yes - each library will expose CLI for testing/management
 - Library docs: llms.txt format planned? Yes
 
@@ -66,8 +66,8 @@ Real-time IoT telemetry dashboard that ingests MQTT data (vibration, temperature
 - FORBIDDEN: Implementation before test, skipping RED phase
 
 **Observability**:
-- Structured logging included? Yes - structured JSON logging for both frontend and backend
-- Frontend logs → backend? Yes - unified logging stream via API
+- Structured logging included? Yes - structured JSON logging (Python logging/structlog backend, console frontend)
+- Frontend logs → backend? Yes - unified logging stream via FastAPI endpoint
 - Error context sufficient? Yes - full context including device IDs, timestamps, error chains
 
 **Versioning**:
@@ -193,12 +193,12 @@ ios/ or android/
 - TDD implementation tasks to make all tests pass
 
 **IoT-Specific Task Categories**:
-1. **Database Setup**: PostgreSQL migrations, InfluxDB schema setup
-2. **MQTT Integration**: Server-side MQTT client, message parsing, data validation
-3. **Real-time Streaming**: SSE implementation, WebSocket fallback
-4. **Visualization**: VisActor chart components, real-time data updates
-5. **Authentication**: JWT-based auth, organization permissions
-6. **Frontend Components**: Dashboard layout, filtering, time range selection
+1. **Database Setup**: PostgreSQL migrations (Python), InfluxDB schema setup (Python)
+2. **MQTT Integration**: Python asyncio MQTT client, message parsing, data validation
+3. **Real-time Streaming**: FastAPI SSE implementation, WebSocket fallback
+4. **Visualization**: VisActor chart components, real-time data updates (React/TypeScript)
+5. **Authentication**: FastAPI JWT-based auth, organization permissions (Python)
+6. **Frontend Components**: Dashboard layout, filtering, time range selection (React/TypeScript)
 
 **Ordering Strategy**:
 - TDD order: Contract tests → Integration tests → Unit tests → Implementation
@@ -209,10 +209,10 @@ ios/ or android/
 **Estimated Output**: 35-40 numbered, ordered tasks in tasks.md
 
 **Key TDD Sequences**:
-1. PostgreSQL model tests → Model implementations → Service tests → Service implementations
-2. InfluxDB schema tests → Schema setup → Telemetry API tests → API implementations  
-3. MQTT client tests → MQTT service → Integration tests → Real-time streaming
-4. Component tests → React components → E2E tests → Dashboard integration
+1. PostgreSQL model tests (pytest) → Python model implementations → Service tests → Service implementations
+2. InfluxDB schema tests (pytest) → Schema setup → FastAPI telemetry endpoints → API implementations  
+3. Python MQTT client tests → MQTT service → Integration tests → Real-time streaming
+4. React component tests (Vitest) → React components → E2E tests (Playwright) → Dashboard integration
 
 **IMPORTANT**: This phase is executed by the /tasks command, NOT by /plan
 
