@@ -1,0 +1,537 @@
+openapi: 3.0.3
+info:
+  title: IoT Telemetry Dashboard API
+  version: 0.1.0
+  description: API for IoT device management and real-time telemetry data access
+  contact:
+    name: IoT Dashboard Team
+    
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development server
+  - url: https://iot-dashboard.example.com/api/v1
+    description: Production server
+
+paths:
+  /organizations:
+    get:
+      summary: List organizations accessible to current user
+      tags: [Organizations]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of organizations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  organizations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
+                  total:
+                    type: integer
+                    description: Total number of organizations
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /organizations/{orgId}/sites:
+    get:
+      summary: List sites within an organization
+      tags: [Sites]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of sites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sites:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Site'
+                  total:
+                    type: integer
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /organizations/{orgId}/sites/{siteId}/areas:
+    get:
+      summary: List areas within a site
+      tags: [Areas]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: siteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of areas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  areas:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Area'
+
+  /organizations/{orgId}/sites/{siteId}/areas/{areaId}/devices:
+    get:
+      summary: List devices within an area
+      tags: [Devices]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: siteId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of devices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  devices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Device'
+
+  /telemetry/current/{deviceId}:
+    get:
+      summary: Get current (latest) telemetry readings for a device
+      tags: [Telemetry]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Current telemetry readings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryReading'
+        '404':
+          description: Device not found or no telemetry data available
+
+  /telemetry/historical/{deviceId}:
+    get:
+      summary: Get historical telemetry data for a device
+      tags: [Telemetry]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: start
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+          description: Start time (ISO 8601)
+        - name: end
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+          description: End time (ISO 8601)
+        - name: interval
+          in: query
+          schema:
+            type: string
+            enum: [1s, 5s, 30s, 1m, 5m, 1h]
+            default: 1s
+          description: Data aggregation interval
+      responses:
+        '200':
+          description: Historical telemetry data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TelemetryReading'
+                  total:
+                    type: integer
+                  interval:
+                    type: string
+
+  /telemetry/stream:
+    get:
+      summary: Server-sent events stream for real-time telemetry updates
+      tags: [Telemetry]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: devices
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of device IDs to stream
+        - name: organizations
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of organization IDs to stream
+      responses:
+        '200':
+          description: Server-sent events stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+              example: |
+                data: {"device_id": "123e4567-e89b-12d3-a456-426614174000", "vibration": 2.4, "temperature": 23.5, "power": 150.2, "electricity": 12.8, "timestamp": "2025-09-12T10:30:00.000Z"}
+
+  /auth/login:
+    post:
+      summary: Authenticate user and get access token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                    example: Bearer
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        slug:
+          type: string
+          pattern: '^[a-z0-9-]+$'
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - slug
+        - created_at
+        - updated_at
+
+    Site:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        organization_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        slug:
+          type: string
+          pattern: '^[a-z0-9-]+$'
+        location:
+          type: string
+          nullable: true
+        timezone:
+          type: string
+          example: "America/New_York"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - organization_id
+        - name
+        - slug
+        - timezone
+        - created_at
+        - updated_at
+
+    Area:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        site_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        slug:
+          type: string
+          pattern: '^[a-z0-9-]+$'
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - site_id
+        - name
+        - slug
+        - created_at
+        - updated_at
+
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        area_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        model:
+          type: string
+          maxLength: 255
+        firmware_version:
+          type: string
+          nullable: true
+        mac_address:
+          type: string
+          nullable: true
+          pattern: '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+        last_seen:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [online, offline, maintenance]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - area_id
+        - name
+        - model
+        - status
+        - created_at
+        - updated_at
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          maxLength: 255
+        role:
+          type: string
+          enum: [admin, operator, viewer]
+        organization_permissions:
+          type: array
+          items:
+            type: string
+            format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - email
+        - name
+        - role
+        - organization_permissions
+        - created_at
+        - updated_at
+
+    TelemetryReading:
+      type: object
+      properties:
+        device_id:
+          type: string
+          format: uuid
+        vibration:
+          type: number
+          format: float
+          description: Vibration measurement in Hz or g-force
+        temperature:
+          type: number
+          format: float
+          description: Temperature in Celsius
+        power:
+          type: number
+          format: float
+          description: Power consumption in Watts
+        electricity:
+          type: number
+          format: float
+          description: Electrical measurement (Amps, Voltage, etc.)
+        timestamp:
+          type: string
+          format: date-time
+        org:
+          type: string
+          description: Organization slug
+        site:
+          type: string
+          description: Site slug
+        area:
+          type: string
+          description: Area slug
+      required:
+        - device_id
+        - vibration
+        - temperature
+        - power
+        - electricity
+        - timestamp
+        - org
+        - site
+        - area
+
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Authentication required"
+              code:
+                type: string
+                example: "UNAUTHORIZED"
+
+    Forbidden:
+      description: Access denied
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Access denied to this resource"
+              code:
+                type: string
+                example: "FORBIDDEN"
