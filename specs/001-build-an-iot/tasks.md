@@ -49,11 +49,11 @@
 - [x] T004 [P] Configure pytest for unit testing in backend and Vitest for frontend
 - [x] T005 [P] Configure Playwright for E2E testing in frontend/
 - [x] T006 [P] Configure ruff/black for Python backend and ESLint/Prettier for TypeScript frontend
-- [ ] T007 Install and configure PostgreSQL client library (asyncpg) in backend/
-- [ ] T008 Install and configure InfluxDB 3.0 client library (influxdb3-python) in backend/
-- [ ] T009 Install and configure asyncio-mqtt client library in backend/
-- [ ] T010 Install and configure VisActor (@visactor/react-vchart) in frontend/
-- [ ] T011 Install and configure Jotai state management in frontend/
+- [x] T007 Install and configure PostgreSQL client library (asyncpg) in backend/
+- [x] T008 Install and configure InfluxDB 3.0 client library (influxdb3-python) in backend/
+- [x] T009 Install and configure asyncio-mqtt client library in backend/
+- [x] T010 Install and configure VisActor (@visactor/react-vchart) in frontend/
+- [x] T011 Install and configure Jotai state management in frontend/
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
