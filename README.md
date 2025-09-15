@@ -2,7 +2,7 @@ Mqtt_publish.py file:
 - Output:
 - Print out a comfirmation that the broker has been connected successfully: "Connected to MQTT Broker!"
 - print out the JSON that has been sent
-- print out the topic that it has been sent to
+- print out the topic that it has been sent to \
 Mqtt_subscribe.py file:
 -Output:
 - Print out a comfirmation that the broker has been connected successfully: "Connected to MQTT Broker!"
