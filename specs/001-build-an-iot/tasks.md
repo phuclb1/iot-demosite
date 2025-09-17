@@ -99,38 +99,38 @@
 ## Phase 3.4: Core Services
 
 ### Database Services
-- [ ] T036 [P] PostgreSQL connection service in backend/src/services/postgresql_service.py
-- [ ] T037 [P] InfluxDB connection service in backend/src/services/influxdb_service.py
-- [ ] T038 [P] Organization service (CRUD operations) in backend/src/services/organization_service.py
-- [ ] T039 [P] Site service (CRUD operations) in backend/src/services/site_service.py
-- [ ] T040 [P] Area service (CRUD operations) in backend/src/services/area_service.py
-- [ ] T041 [P] Device service (CRUD operations) in backend/src/services/device_service.py
-- [ ] T042 [P] User service (CRUD operations) in backend/src/services/user_service.py
+- [x] T036 [P] PostgreSQL connection service in backend/src/services/postgresql_service.py
+- [x] T037 [P] InfluxDB connection service in backend/src/services/influxdb_service.py
+- [x] T038 [P] Organization service (CRUD operations) in backend/src/services/organization_service.py
+- [x] T039 [P] Site service (CRUD operations) in backend/src/services/site_service.py
+- [x] T040 [P] Area service (CRUD operations) in backend/src/services/area_service.py
+- [x] T041 [P] Device service (CRUD operations) in backend/src/services/device_service.py
+- [x] T042 [P] User service (CRUD operations) in backend/src/services/user_service.py
 
-### Telemetry Services  
-- [ ] T043 [P] Telemetry service (InfluxDB queries) in backend/src/services/telemetry_service.py
-- [ ] T044 [P] MQTT client service in backend/src/services/mqtt_service.py
-- [ ] T045 Real-time streaming service (SSE) in backend/src/services/streaming_service.py
+### Telemetry Services
+- [x] T043 [P] Telemetry service (InfluxDB queries) in backend/src/services/telemetry_service.py
+- [x] T044 [P] MQTT client service in backend/src/services/mqtt_service.py
+- [x] T045 Real-time streaming service (SSE) in backend/src/services/streaming_service.py
 
 ### Authentication & Authorization
-- [ ] T046 [P] JWT authentication service in backend/src/services/auth_service.py
-- [ ] T047 [P] Authorization middleware in backend/src/middleware/auth_middleware.py
+- [x] T046 [P] JWT authentication service in backend/src/services/auth_service.py
+- [x] T047 [P] Authorization middleware in backend/src/middleware/auth_middleware.py
 
 ## Phase 3.5: API Endpoints
 
 ### Hierarchy Endpoints
-- [ ] T048 GET /api/v1/organizations endpoint in backend/src/api/v1/organizations.py
-- [ ] T049 GET /api/v1/organizations/{org_id}/sites endpoint in backend/src/api/v1/sites.py
-- [ ] T050 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas endpoint in backend/src/api/v1/areas.py
-- [ ] T051 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices endpoint in backend/src/api/v1/devices.py
+- [x] T048 GET /api/v1/organizations endpoint in backend/src/api/v1/organizations.py
+- [x] T049 GET /api/v1/organizations/{org_id}/sites endpoint in backend/src/api/v1/sites.py
+- [x] T050 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas endpoint in backend/src/api/v1/areas.py
+- [x] T051 GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices endpoint in backend/src/api/v1/devices.py
 
 ### Telemetry Endpoints
-- [ ] T052 GET /api/v1/telemetry/current/{device_id} endpoint in backend/src/api/v1/telemetry.py
-- [ ] T053 GET /api/v1/telemetry/historical/{device_id} endpoint in backend/src/api/v1/telemetry.py
-- [ ] T054 GET /api/v1/telemetry/stream endpoint (SSE) in backend/src/api/v1/telemetry.py
+- [x] T052 GET /api/v1/telemetry/current/{device_id} endpoint in backend/src/api/v1/telemetry.py
+- [x] T053 GET /api/v1/telemetry/historical/{device_id} endpoint in backend/src/api/v1/telemetry.py
+- [x] T054 GET /api/v1/telemetry/stream endpoint (SSE) in backend/src/api/v1/telemetry.py
 
 ### Authentication Endpoints
-- [ ] T055 POST /api/v1/auth/login endpoint in backend/src/api/v1/auth.py
+- [x] T055 POST /api/v1/auth/login endpoint in backend/src/api/v1/auth.py
 
 ## Phase 3.6: Frontend Components
 
