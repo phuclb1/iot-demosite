@@ -82,19 +82,19 @@
 ## Phase 3.3: Data Models (ONLY after tests are failing)
 
 ### PostgreSQL Models
-- [ ] T027 [P] Organization model in backend/src/models/organization.py
-- [ ] T028 [P] Site model in backend/src/models/site.py  
-- [ ] T029 [P] Area model in backend/src/models/area.py
-- [ ] T030 [P] Device model in backend/src/models/device.py
-- [ ] T031 [P] User model in backend/src/models/user.py
+- [x] T027 [P] Organization model in backend/src/models/organization.py
+- [x] T028 [P] Site model in backend/src/models/site.py
+- [x] T029 [P] Area model in backend/src/models/area.py
+- [x] T030 [P] Device model in backend/src/models/device.py
+- [x] T031 [P] User model in backend/src/models/user.py
 
 ### InfluxDB Models
-- [ ] T032 [P] TelemetryReading model in backend/src/models/telemetry_reading.py
-- [ ] T033 [P] DeviceStatusSnapshot model in backend/src/models/device_status_snapshot.py
+- [x] T032 [P] TelemetryReading model in backend/src/models/telemetry_reading.py
+- [x] T033 [P] DeviceStatusSnapshot model in backend/src/models/device_status_snapshot.py
 
 ### Database Migrations
-- [ ] T034 PostgreSQL migration scripts in backend/src/migrations/
-- [ ] T035 InfluxDB schema setup script in backend/src/scripts/setup_influxdb.py
+- [x] T034 PostgreSQL migration scripts in backend/src/migrations/
+- [x] T035 InfluxDB schema setup script in backend/src/scripts/setup_influxdb.py
 
 ## Phase 3.4: Core Services
 
