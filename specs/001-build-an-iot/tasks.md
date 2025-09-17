@@ -59,25 +59,25 @@
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
 
 ### Contract Tests (API Schema Validation)
-- [ ] T012 [P] Contract test GET /api/v1/organizations in backend/tests/contract/test_organizations_get.py
-- [ ] T013 [P] Contract test GET /api/v1/organizations/{org_id}/sites in backend/tests/contract/test_sites_get.py
-- [ ] T014 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas in backend/tests/contract/test_areas_get.py
-- [ ] T015 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices in backend/tests/contract/test_devices_get.py
-- [ ] T016 [P] Contract test GET /api/v1/telemetry/current/{device_id} in backend/tests/contract/test_telemetry_current_get.py
-- [ ] T017 [P] Contract test GET /api/v1/telemetry/historical/{device_id} in backend/tests/contract/test_telemetry_historical_get.py
-- [ ] T018 [P] Contract test GET /api/v1/telemetry/stream (SSE) in backend/tests/contract/test_telemetry_stream_get.py
-- [ ] T019 [P] Contract test POST /api/v1/auth/login in backend/tests/contract/test_auth_login_post.py
+- [x] T012 [P] Contract test GET /api/v1/organizations in backend/tests/contract/test_organizations_get.py
+- [x] T013 [P] Contract test GET /api/v1/organizations/{org_id}/sites in backend/tests/contract/test_sites_get.py
+- [x] T014 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas in backend/tests/contract/test_areas_get.py
+- [x] T015 [P] Contract test GET /api/v1/organizations/{org_id}/sites/{site_id}/areas/{area_id}/devices in backend/tests/contract/test_devices_get.py
+- [x] T016 [P] Contract test GET /api/v1/telemetry/current/{device_id} in backend/tests/contract/test_telemetry_current_get.py
+- [x] T017 [P] Contract test GET /api/v1/telemetry/historical/{device_id} in backend/tests/contract/test_telemetry_historical_get.py
+- [x] T018 [P] Contract test GET /api/v1/telemetry/stream (SSE) in backend/tests/contract/test_telemetry_stream_get.py
+- [x] T019 [P] Contract test POST /api/v1/auth/login in backend/tests/contract/test_auth_login_post.py
 
 ### Integration Tests (User Stories Validation)
-- [ ] T020 [P] Integration test: Operations manager views real-time dashboard in backend/tests/integration/test_dashboard_realtime.py
-- [ ] T021 [P] Integration test: Hierarchical filtering (org/site/area) in backend/tests/integration/test_hierarchy_filtering.py
-- [ ] T022 [P] Integration test: Historical data time range selection in backend/tests/integration/test_historical_data.py
-- [ ] T023 [P] Integration test: Device status monitoring and offline detection in backend/tests/integration/test_device_status.py
-- [ ] T024 [P] Integration test: MQTT telemetry ingestion and processing in backend/tests/integration/test_mqtt_ingestion.py
+- [x] T020 [P] Integration test: Operations manager views real-time dashboard in backend/tests/integration/test_dashboard_realtime.py
+- [x] T021 [P] Integration test: Hierarchical filtering (org/site/area) in backend/tests/integration/test_hierarchy_filtering.py
+- [x] T022 [P] Integration test: Historical data time range selection in backend/tests/integration/test_historical_data.py
+- [x] T023 [P] Integration test: Device status monitoring and offline detection in backend/tests/integration/test_device_status.py
+- [x] T024 [P] Integration test: MQTT telemetry ingestion and processing in backend/tests/integration/test_mqtt_ingestion.py
 
 ### Database Schema Tests
-- [ ] T025 [P] Database schema test: PostgreSQL tables creation in backend/tests/integration/test_postgres_schema.py
-- [ ] T026 [P] Database schema test: InfluxDB measurements setup in backend/tests/integration/test_influxdb_schema.py
+- [x] T025 [P] Database schema test: PostgreSQL tables creation in backend/tests/integration/test_postgres_schema.py
+- [x] T026 [P] Database schema test: InfluxDB measurements setup in backend/tests/integration/test_influxdb_schema.py
 
 ## Phase 3.3: Data Models (ONLY after tests are failing)
 
