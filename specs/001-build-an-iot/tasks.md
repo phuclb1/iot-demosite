@@ -135,29 +135,29 @@
 ## Phase 3.6: Frontend Components
 
 ### State Management (Jotai)
-- [ ] T056 [P] Organization state atoms in frontend/src/state/organizationAtoms.ts
-- [ ] T057 [P] Device hierarchy state atoms in frontend/src/state/hierarchyAtoms.ts
-- [ ] T058 [P] Telemetry data state atoms in frontend/src/state/telemetryAtoms.ts
-- [ ] T059 [P] Authentication state atoms in frontend/src/state/authAtoms.ts
+- [x] T056 [P] Organization state atoms in frontend/src/state/organizationAtoms.ts
+- [x] T057 [P] Device hierarchy state atoms in frontend/src/state/hierarchyAtoms.ts
+- [x] T058 [P] Telemetry data state atoms in frontend/src/state/telemetryAtoms.ts
+- [x] T059 [P] Authentication state atoms in frontend/src/state/authAtoms.ts
 
 ### UI Components (React + Shadcn)
-- [ ] T060 [P] Login form component in frontend/src/components/auth/LoginForm.tsx
-- [ ] T061 [P] Organization selector component in frontend/src/components/hierarchy/OrganizationSelector.tsx
-- [ ] T062 [P] Site selector component in frontend/src/components/hierarchy/SiteSelector.tsx
-- [ ] T063 [P] Area selector component in frontend/src/components/hierarchy/AreaSelector.tsx
-- [ ] T064 [P] Device list component in frontend/src/components/hierarchy/DeviceList.tsx
+- [x] T060 [P] Login form component in frontend/src/components/auth/LoginForm.tsx
+- [x] T061 [P] Organization selector component in frontend/src/components/hierarchy/OrganizationSelector.tsx
+- [x] T062 [P] Site selector component in frontend/src/components/hierarchy/SiteSelector.tsx
+- [x] T063 [P] Area selector component in frontend/src/components/hierarchy/AreaSelector.tsx
+- [x] T064 [P] Device list component in frontend/src/components/hierarchy/DeviceList.tsx
 
 ### Visualization Components (VisActor)
-- [ ] T065 [P] Real-time vibration chart component in frontend/src/components/charts/VibrationChart.tsx
-- [ ] T066 [P] Real-time temperature chart component in frontend/src/components/charts/TemperatureChart.tsx
-- [ ] T067 [P] Real-time power chart component in frontend/src/components/charts/PowerChart.tsx
-- [ ] T068 [P] Real-time electricity chart component in frontend/src/components/charts/ElectricityChart.tsx
-- [ ] T069 [P] Time range picker component in frontend/src/components/charts/TimeRangePicker.tsx
+- [x] T065 [P] Real-time vibration chart component in frontend/src/components/charts/VibrationChart.tsx
+- [x] T066 [P] Real-time temperature chart component in frontend/src/components/charts/TemperatureChart.tsx
+- [x] T067 [P] Real-time power chart component in frontend/src/components/charts/PowerChart.tsx
+- [x] T068 [P] Real-time electricity chart component in frontend/src/components/charts/ElectricityChart.tsx
+- [x] T069 [P] Time range picker component in frontend/src/components/charts/TimeRangePicker.tsx
 
 ### Dashboard Pages
-- [ ] T070 Main dashboard page in frontend/src/pages/dashboard.tsx
-- [ ] T071 Login page in frontend/src/pages/login.tsx
-- [ ] T072 [P] Dashboard layout component in frontend/src/components/layout/DashboardLayout.tsx
+- [x] T070 Main dashboard page in frontend/src/pages/dashboard.tsx
+- [x] T071 Login page in frontend/src/pages/login.tsx
+- [x] T072 [P] Dashboard layout component in frontend/src/components/layout/DashboardLayout.tsx
 
 ## Phase 3.7: Real-time Integration
 
