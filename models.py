@@ -9,3 +9,4 @@ class Device(Base):
     site = Column(String, index=True)
     area = Column(String, index=True)
     installed_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
+

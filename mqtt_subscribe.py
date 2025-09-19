@@ -1,29 +1,39 @@
 import paho.mqtt.client as mqtt
 from datetime import datetime
 import random
-import influxdb_client
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
-import os
 import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 
 
 #token = os.environ.get("INFLUXDB_TOKEN")
-token = "eHknf5LcWds3hdixmQHyaXHBaCvPc9sY2Wgr9-yv57evV3vmGAyhW6bcFnuhYs1NadbCt7pKUsTPyoMdIVqi9Q=="
+token = "rwxEeiKenR5FgR6j6ZdCiTpc-4EERx9rQ53D9_DUgyNBapQdDSvgEg36knJ9NdbOaMT8K8_pnP2GEjzG-bAwgg=="
 org = "test_org"
 url = "http://localhost:8086"
-write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+write_client = InfluxDBClient(url=url, token=token, org=org)
+
+'''write_client = influxdb_client.InfluxDBClient(
+            url='113.176.195.22', 
+            port='8007', 
+            username='admin', 
+            password='password123', 
+            database='test_db')
+'''
+
 bucket = "test_bucket"
 write_api = write_client.write_api(write_options=SYNCHRONOUS)
-
-
+#write_client.create_database('test_db')
 
 
 broker = 'dev-mqtt.rainscales.com'
 port = 8003
-topic = "iot/+/+/+/+/telemetry/v1" 
+# topic = "iot/+/+/+/+/telemetry/v1" 
+topic = "iot/companyA/factory1/assembly-line/QM30VT2-0001/telemetry/v1"
 client_id = f'subscribe-{random.randint(0, 100)}'
 
 
@@ -36,7 +46,7 @@ def connect_mqtt() -> mqtt:
             print("Failed to connect, return code %d\n", rc)
 
     mqtt_client = mqtt.Client(client_id=client_id)
-    # client.username_pw_set(username, password)
+    #client.username_pw_set(username, password)
     mqtt_client.on_connect = on_connect
     mqtt_client.connect(broker, port)
     return mqtt_client
@@ -53,7 +63,7 @@ def parse_vibration_data(vibration_data, device_id, timestamp):
             if axis in vibration_data['summary']:
                 axis_data = vibration_data['summary'][axis]
                 
-                point = Point("vibration_summary") .tag("device_id", device_id) .tag("axis", axis) .time(timestamp, WritePrecision.MS)
+                point = Point("vibration_summary").tag("device_id", device_id).tag("axis", axis).time(timestamp, WritePrecision.MS)
                 
                 for field_name, value in axis_data.items():
                     if isinstance(value, (int, float)): 
@@ -99,7 +109,7 @@ def parse_payload(payload):
     # Process temperature data
     if 'temperature' in payload:
         temp_data = payload['temperature']
-        point = Point("temperature") .tag("device_id", device_id).time(timestamp, WritePrecision.MS)
+        point = Point("temperature").tag("device_id", device_id).time(timestamp, WritePrecision.MS)
         
         if 'instant' in temp_data:
             point = point.field("temperature", temp_data['instant'])
@@ -112,7 +122,7 @@ def parse_payload(payload):
     # Process health data
     if 'health' in payload:
         health_data = payload['health']
-        point = Point("device_health") .tag("device_id", device_id) .time(timestamp, WritePrecision.MS)
+        point = Point("device_health").tag("device_id", device_id).time(timestamp, WritePrecision.MS)
         
         for field_name, value in health_data.items():
             if field_name != 'errors' and isinstance(value, (int, float)):
@@ -130,8 +140,12 @@ def subscribe(mqtt_client: mqtt):
             points = parse_payload(payload)
             
             for point in points:
-                write_api.write(bucket=bucket, org=org, record=point)
+                write_api.write(bucket=bucket, record=point)
+                #write_client.write_points(points)
             
+            with open("device.json", "a") as file :
+                file.write(json.dumps(msg.payload.decode()) + "\n" + "\n") 
+
             print(f"Processed {len(points)} data points from device {payload.get('device_id', 'unknown')}")
             print(f" Recieved: {msg.payload.decode()}")
             print(f"Received from topic: {msg.topic}")
@@ -141,7 +155,7 @@ def subscribe(mqtt_client: mqtt):
             print(f"Payload: {msg.payload.decode()}")
 
     mqtt_client.subscribe(topic)
-    mqtt_client.on_message = on_message
+    mqtt_client.on_message = on_message 
 
 
 def run():

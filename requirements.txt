@@ -1,0 +1,7 @@
+pydantic
+mqtt_client
+influxdb_client
+sqlalchemy
+fastapi
+uvicorn[standard]
+gunicorn

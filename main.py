@@ -1,9 +1,6 @@
-from typing import Union, Optional
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client .client.write_api import SYNCHRONOUS
 from fastapi import FastAPI, Depends, HTTPException, Query
-from pydantic import BaseModel
-from datetime import datetime
 import models, schemas
 from db import engine, Base, get_db
 from sqlalchemy.orm import Session

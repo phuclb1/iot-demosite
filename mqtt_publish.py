@@ -6,17 +6,17 @@ import json
 
 
 
-
 broker = "dev-mqtt.rainscales.com"
 port = 8003
 
+'''
 def generate_topic():
     org = "org" + ''.join(random.choices(string.ascii_letters, k=7))
     site = "site" + ''.join(random.choices(string.ascii_letters, k=6))
     area = "area" + ''.join(random.choices(string.ascii_letters, k=6))
     device_id = ''.join(random.choices(string.ascii_letters, k=10))
     return f"iot/{org}/{site}/{area}/{device_id}/telemetry/v1" 
-
+'''
            
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -36,14 +36,15 @@ def connect_mqtt():
 def publish(client):
     try:
         while True :
-            topic = generate_topic()
+            #topic = generate_topic()
+            topic = "iot/companyA/factory1/assembly-line/QM30VT2-0001/telemetry/v1"
             data = {
     "schema_version": "1.1.0",
     "device_id": "QM30VT2-0001",
-    "ts": "2025-09-03T13:54:14.000Z",
+    "ts": "2025-09-05=7T13:54:14.000Z",
     "seq": 128773,
-    "window_start": "2025-09-03T13:54:13.000Z",  "window_end": "2025-09-03T13:54:14.000Z",
-
+    "window_start": "2025-09-05T13:54:13.000Z",  "window_end": "2025-09-05T13:54:14.000Z",
+ 
     "vibration": {
 	    "units": {
   	        "acceleration": "g",
@@ -56,7 +57,7 @@ def publish(client):
     	        "rms_velocity_mms": -0.001,
     	        "rms_acceleration_g": 1.739,
     	        "peak_velocity_mms": -0.001,
-    	        "peak_acceleration_g": 1.043,
+    	        "peak_acceleration_g": 7.0,
     	        "peak_velocity_component_mms": 9.7,
     	        "kurtosis": -0.001,
     	        "crest_factor": 28.797,
@@ -84,7 +85,7 @@ def publish(client):
  
   "temperature": {
 	"unit": "C",
-	"instant": 32.45
+	"instant": 40.45
   },
  
   "health": {
